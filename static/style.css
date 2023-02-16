@@ -1,0 +1,121 @@
+body {
+  margin: 0px;
+  height: 120vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+/* -----메뉴바----- */
+.navbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+}
+
+.navbar__logo {
+    margin-left: 50px;
+    width: 60%;
+}
+
+.navbar__logo a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar__menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 40%;
+}
+
+.navbar__menuitem {
+  float: left;
+}
+
+/* 메뉴 항목에 마우스 올리면 */
+.navbar__menuitem a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar__menuitem a:hover {
+  background-color: #111;
+}
+
+
+/* -----로그인, 회원가입, 회원 정보 폼----- */
+.formbox {
+    background-color: rgb(234, 245, 255);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    width: 600px;
+    height: 400px;
+    border-radius: 50px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.login-form__row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-form input:not([type="submit"]) {
+  border: none;
+  margin: 10px 20px;
+  padding: 15px 10px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease-in-out;
+  width: 350px;
+}
+
+.login-form input::value text{
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.login-form text {
+    font-size: 20px;
+}
+
+.login-form input[type="submit"] {
+  background-color: rgb(255, 230, 121);
+  margin-top: 25px;
+  border-radius: 5px;
+  padding: 10px 0px;
+  cursor: pointer;
+  color: black;
+  font-weight: 500;
+} 
+
+.login-form a {
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  padding-top: 20px;
+  font-size: 20px;
+}
