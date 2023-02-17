@@ -1,4 +1,5 @@
-<html>
+{% extends "index.html" %}
+{% block section %}
 <div class="title">
     <span id="chk">
         <h2>맛집 리스트</h2>
@@ -38,5 +39,5 @@
     <br><br>
     {% endfor %}
 </div>
-</html>
 {% endif %}
+{% endblock section%}
