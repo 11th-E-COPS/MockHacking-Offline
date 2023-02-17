@@ -51,18 +51,22 @@
       <!--     form     -->
       <div class="formbox">
         <form class="login-form" action="/myaccount" method="post">
-          <div class="login-form__row">
-            <text>ID : </text>
-            <!--      ID      -->
-            <input type="text" name="id" value="{{ id }}" disabled />
+          <div class="login-form__r">
+            <div class="login-form__row">
+              <text>ID : </text>
+              <!--      ID      -->
+              <input type="text" name="id" value="{{ id }}" disabled />
+            </div>
+            <div class="login-form__row">
+              <text>PW : </text>
+              <!--   PASSWORD   -->
+              <input type="text" name="pw" value="{{ pw }}" disabled />
+            </div>
           </div>
-          <div class="login-form__row">
-            <text>PW : </text>
-            <!--   PASSWORD   -->
-            <input type="text" name="pw" value="{{ pw }}" disabled />
-          </div>
-          <div class="login-form__row">
-            <a href="/myaccount_edit">비밀번호 변경</a>
+          <div class="login-form__r">
+            <div class="login-form__row">
+              <a href="/myaccount_edit">비밀번호 변경</a>
+            </div>
           </div>
         </form>
       </div>

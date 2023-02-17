@@ -51,18 +51,22 @@
       <!--     form     -->
       <div class="formbox">
         <form class="login-form" action="/myaccount_edit_proc" method="post">
-          <div class="login-form__row">
-            <text>ID : </text>
-            <!--      ID      -->
-            <input type="text" name="id" value="{{ id }}" disabled />
+          <div class="login-form__r">
+            <div class="login-form__row">
+              <text>ID : </text>
+              <!--      ID      -->
+              <input type="text" name="id" value="{{ id }}" disabled />
+            </div>
+            <div class="login-form__row">
+              <text>PW : </text>
+              <!--   PASSWORD   -->
+              <input type="text" name="pw" value="{{ pw }}" />
+            </div>
           </div>
-          <div class="login-form__row">
-            <text>PW : </text>
-            <!--   PASSWORD   -->
-            <input type="text" name="pw" value="{{ pw }}" />
-          </div>
-          <div class="login-form__row">
-            <input type="submit" value="수정" />
+          <div class="login-form__r">
+            <div class="login-form__row">
+              <input type="submit" value="수정" />
+            </div>
           </div>
         </form>
       </div>

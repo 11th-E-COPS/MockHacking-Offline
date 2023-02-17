@@ -71,6 +71,11 @@ main {
   flex-direction: column;
   height: 100%;
   justify-content: space-evenly;
+  padding-top: 20px;
+}
+
+.login-form__r {
+  width: 100%;
 }
 
 .login-form__row {
@@ -83,7 +88,7 @@ main {
 
 .login-form input:not([type="submit"]) {
   border: none;
-  margin: 10px 20px;
+  margin: 15px 0px;
   padding: 15px 10px;
   font-size: 20px;
   background-color: white;
@@ -102,19 +107,23 @@ main {
 }
 
 .login-form input[type="submit"] {
-  background-color: rgb(255, 230, 121);
-  margin-top: 25px;
-  border-radius: 5px;
-  padding: 10px 0px;
+  background-color: #8dc8ff;
+  border-radius: 15px;
+  padding: 20px 50px;
   cursor: pointer;
   color: black;
   font-weight: 500;
+  font-size: 18px;
+  border: none;
+  border-bottom: 2px solid rgba(110, 166, 222, 0.701);
 } 
 
 .login-form a {
   text-align: center;
-  text-decoration: none;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 00;
   color: inherit;
-  padding-top: 20px;
   font-size: 20px;
+  padding: 15px 10px;
 }
