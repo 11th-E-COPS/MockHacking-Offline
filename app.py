@@ -83,7 +83,7 @@ def modify():
 def mod_restaurant_submit_post():
 
     image_file=request.files["file"]
-    image_file.save("static/{}".format(image_file.filename))
+    #image_file.save("static/{}".format(image_file.filename))
     data=request.form
     #print(data)
 
