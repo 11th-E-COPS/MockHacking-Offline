@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="kr">
-    <head>
-        <meta charset = "UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Signup</title>
-    </head>
-    <body>
+{% extends "index.html" %}
+
+{% block section %}
         <h1>회원가입</h1>
         <form action="/signup_post" method="post">
         <p>ID : <input type = "text" name = "id" required></p>
         <p>passwd : <input type = "password" name = "pw" required></p>
         <p>아이디와 비밀번호를 입력하고 생성 버튼을 누르세요. <br><input type ="submit" value ="생성"/></p>
         </form>
-    </body>
-</html>
+{% endblock section %}
