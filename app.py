@@ -4,6 +4,7 @@ import sys
 import sqlite3
 
 application = Flask(__name__)
+application.secret_key = 'SUPERSECRETKEY'
 DB = DBhandler()
 
 @application.route("/")
@@ -111,7 +112,7 @@ def login_user():
         
     if DB.find_user(id_, pw_):
        session['id']=id_
-       return redirect(url_for('list'))
+       return redirect(url_for('view_list'))
     else:
         return render_template("login.html")
 
