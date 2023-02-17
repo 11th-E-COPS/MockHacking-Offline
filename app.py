@@ -1,27 +1,94 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from db import DBhandler
+import sys
 import sqlite3
-db_file=''
 
-app = Flask(__name__)
+application = Flask(__name__)
+DB = DBhandler()
 
-
-@app.route("/")
+@application.route("/")
 def hello():
     return render_template("index.html")
 
-@app.route("/board")
+@application.route("/list")
+def view_list():
+    
+    datas = DB.get_restaurants()
+    total_count = len(datas)
+
+    return render_template("list.html", datas = datas, total_count = total_count)
+
+@application.route("/review")
+def view_review():
+    return render_template("review.html")
+
+@application.route("/register_restaurant")
+def reg_restaurant():
+    return render_template("register_restaurant.html")
+
+@application.route("/submit_restaurant")
+def reg_restaurant_submit():
+    name=request.args.get("name")
+    addr=request.args.get("addr")
+    tel=request.args.get("tel")
+    category=request.args.get("category")
+    park=request.args.get("park")
+    time=request.args.get("time")
+    site=request.args.get("site")
+    print(name,addr,tel,category,park,time,site)
+
+@application.route("/submit_restaurant_post", methods=['POST'])
+def reg_restaurant_submit_post():
+
+    image_file=request.files["file"]
+    image_file.save("static/image/{}".format(image_file.filename))
+    data=request.form
+
+    if DB.insert_restaurant(data['name'], data, image_file.filename):
+        return render_template("submit_restaurant_result.html", data=data, image_path="static/image/"+image_file.filename)
+    else:
+        return "Restaurant name already exist!"
+
+
+@application.route('/dynamicurl/<variable_name>')
+def DynamicUrl(variable_name):
+    return str(variable_name)
+
+
+# 상세페이지
+@application.route("/view_detail/<name>/")
+def view_restaurant_detail(name):
+    data = DB.get_restaurant_byname(str(name))
+
+    if str(data) == "None":
+        flash("올바르지 않은 맛집 이름입니다.")
+        return redirect(url_for('list'))
+    
+    return render_template("detail.html", name = name, data=data)
+
+@application.route('/remove',methods=['POST'])
+def remove():
+    data = request.form
+    DB.remove_restaurant(data['name'])
+    return view_list()
+
+@application.route("/register_review")
+def reg_review():
+    return render_template("register_review.html")
+    
+@application.route("/board")
 def view_board():
     return render_template("board.html")
 
-@app.route("/login")
+@application.route("/login")
 def login():
     return render_template("login.html")
 
-@app.route("/notice")
+@application.route("/notice")
 def view_notice():
     return render_template("notice.html")
 
-@app.route("/myaccount/3")
+@application.route("/myaccount/3")
 def getUser():
     #@app.route("/myaccount/<int:u_idx>", method=['GET'])
     #def getUser(u_idx):
@@ -40,7 +107,7 @@ def getUser():
     return render_template('myaccount.html')
 
 
-@app.route("/myaccount_edit/3")
+@application.route("/myaccount_edit/3")
 def tmpUser(edit_idx):
     #@app.route("/myaccount_edit/<int:edit_idx>", method=['GET'])
     # if session.get('logFlag') != True:
@@ -56,7 +123,7 @@ def tmpUser(edit_idx):
     return render_template('myaccount_edit.html', edit_idx=edit_idx, edit_pw=edit_pw)
 
 
-@app.route("/myaccount_edit_ok")
+@application.route("/myaccount_edit_ok")
 def editUser():
     # @app.route("/myaccount_edit_ok", method=['POST'])
     idx=request.form['idx']
@@ -78,4 +145,4 @@ def editUser():
 # app.secret_key
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    application.run(host='0.0.0.0', port=5000, debug=True)
