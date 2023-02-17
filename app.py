@@ -42,11 +42,11 @@ def reg_restaurant_submit():
 def reg_restaurant_submit_post():
 
     image_file=request.files["file"]
-    image_file.save("static/image/{}".format(image_file.filename))
+    image_file.save("static/{}".format(image_file.filename))
     data=request.form
 
     if DB.insert_restaurant(data['name'], data, image_file.filename):
-        return render_template("submit_restaurant_result.html", data=data, image_path="static/image/"+image_file.filename)
+        return render_template("submit_restaurant_result.html", data=data, image_path="static/"+image_file.filename)
     else:
         return "Restaurant name already exist!"
 
@@ -63,15 +63,35 @@ def view_restaurant_detail(name):
 
     if str(data) == "None":
         flash("올바르지 않은 맛집 이름입니다.")
-        return redirect(url_for('list'))
+        return view_list()
     
     return render_template("detail.html", name = name, data=data)
 
-@application.route('/remove',methods=['POST'])
+@application.route("/remove",methods=['POST'])
 def remove():
     data = request.form
     DB.remove_restaurant(data['name'])
     return view_list()
+@application.route("/modify",methods=['POST'])
+def modify():
+    data = request.form
+    datas = DB.get_restaurant_byname(data['name'])
+    #print(datas)
+    return render_template("modify_info.html", datas=datas)
+
+@application.route("/modify_restaurant_post", methods=['POST'])
+def mod_restaurant_submit_post():
+
+    image_file=request.files["file"]
+    image_file.save("static/{}".format(image_file.filename))
+    data=request.form
+    #print(data)
+
+    if DB.modify_restaurant(data['origin_name'], data, image_file.filename):
+        return view_restaurant_detail(data['name'])
+
+    else:
+        return "Restaurant name already exist!"
 
 @application.route("/register_review")
 def reg_review():
