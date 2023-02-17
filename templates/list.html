@@ -1,0 +1,42 @@
+<html>
+<div class="title">
+    <span id="chk">
+        <h2>맛집 리스트</h2>
+    </span>
+</div>
+
+{% if total_count == 0 %} <!--등록된 맛집이 없으면-->
+<p>등록된 맛집이 없습니다.<br>
+  당신의 맛집을 등록해서 다른 사람들에게 공유해주세요!</p>
+
+{% else %} <!--등록된 맛집이 있을 경우-->
+<p>현재까지 등록된 맛집 : {{total_count}}개<p>
+
+<br>
+
+<div class="list">
+    <div id="pers">
+    {% for data in datas %}
+  
+    <div class="맛집" id="{{data.name}}">
+      <div class="box">
+        <div class="image">
+           
+           <a href = "/view_detail/{{data.name}}/">
+          <img
+            name="{{data.name}}"
+            src="../static/image/{{ data.img_path }}"
+            alt="{{ data.name }}"
+            width="285px"
+            height="285px"
+          />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+    {% endfor %}
+</div>
+</html>
+{% endif %}

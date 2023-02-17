@@ -1,0 +1,70 @@
+
+    <div class="title">
+      <h2><span class="res-name">{{name}}</span></h2>
+    </div>
+    
+    <table class="info-table">
+      <tbody>
+        <tr>
+          <th colspan="2" class="fontset">맛집 대표사진</th>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center">
+            <img
+              name="img"
+              width="250px"
+              height="220px"
+              src="/static/image/{{data.img_path}}"
+              alt="맛집 대표사진"
+            />
+          </td>
+        </tr>
+        <tr height="2em">
+          <th colspan="2" class="fontset">맛집 세부 정보</th>
+        </tr>
+        <tr>
+          <th class="info-th">카테고리</th>
+          <td>{{data.category}}</td>
+        </tr>
+
+        <tr>
+          <th class="info-th">영업 시간</th>
+          <td>{{data.time}}</td>
+        </tr>
+        <tr>
+          <th class="info-th">전화 번호</th>
+          <td>{{data.tel}}</td>
+        </tr>
+        <tr>
+          <th class="info-th">맛집 사이트</th>
+          <td>
+            <a href="{{data.site}}">{{data.site}}</a>
+          </td>
+        </tr>
+        <tr>
+          <th class="info-th">주차</th>
+          <td>
+            {% if data['park'] == "Y" %} 가능합니다. {% endif %} {% if data['park']
+            == "N" %} 불가능합니다. {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th class="info-th">주소</th>
+          <td>{{data.addr}}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <br /><br />
+
+    <form method="post" action="/modify">
+        <input type="hidden" name="name" value="{{data.name}}" />
+        <button type="submit" name="menu">수정</button>
+    </form>
+    <form method="post" action="/remove">
+        <input type="hidden" name="name" value="{{data.name}}" />
+        <button type="submit" name="menu">삭제</button>
+    </form>
+    <button onclick="location.href='/list'">목록</button>
+    
+  
