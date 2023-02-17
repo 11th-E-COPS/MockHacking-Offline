@@ -1,0 +1,49 @@
+<form enctype="multipart/form-data" action="/submit_restaurant_post" method="post">
+    <div>
+        <div>
+            <label for="img">Representative Image upload : </label>
+            <input type="file" name="file" /><br><br>
+            </div>
+        <br><br>
+            <label for="name">Restaurant name: </label>
+            <input type="text" name="name" id="name" required><br><br>
+        </div>
+        <div>
+            <label for="addr">Restaurant address: </label>
+            <input type="text" name="addr" id="addr" required><br><br>
+        </div>
+        <div>
+            <label for="tel">Restaurant Tel.: </label>
+            <input type="text" name="tel" id="tel" required><br><br>
+        </div>
+        <div>
+            <label for="category">Food category: </label>
+        <br>
+        <select id="category" name="category">
+            <option value="Korean" selected>Korean</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+        </select>
+        <br><br>
+    </div>
+    <div>
+        <label for="park">Parking (Y/N): </label>
+        <br>
+        <select id="park" name="park">
+            <option value="Y" selected>Yes</option>
+            <option value="N">No</option>
+        </select><br><br>
+        </div>
+        <div>
+            <label for="time">Open/Close Time : </label>
+            <input type="text" name="time" id="time"><br><br>
+        </div>
+        <div>
+            <label for="site">Homepage URL : </label>
+            <input type="text" name="site" id="site"><br><br>
+        </div>
+        <div>
+        <input type="submit" value="Submit!"><br><br>
+    </div>
+</form>
