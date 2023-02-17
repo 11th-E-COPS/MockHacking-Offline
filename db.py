@@ -48,6 +48,18 @@ class DBhandler:
         else:
             return False"""
         
+
+    def modify_restaurant(self, name, data, img_path):
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+
+
+        sql = "UPDATE restaurant SET name='%s',addr='%s',category='%s', img_path='%s',park='%s',site='%s', tel='%s',time='%s' WHERE name='%s'" % (data['name'], data['addr'], data['category'], img_path, data['park'],data['site'],data['tel'],data['time'], name)
+        cur.execute(sql)
+        con.commit()
+        con.close()
+        return True
+        
     def get_restaurants(self):
         con = sqlite3.connect("database.db")
         con.row_factory = sqlite3.Row
