@@ -1,4 +1,5 @@
-<html>
+{% extends "index.html" %}
+{% block section %}
 <div class="title">
     <span id="chk">
         <h2>맛집 리스트</h2>
@@ -25,7 +26,7 @@
            <a href = "/view_detail/{{data.name}}/">
           <img
             name="{{data.name}}"
-            src="../static/image/{{ data.img_path }}"
+            src="../static/{{ data.img_path }}"
             alt="{{ data.name }}"
             width="285px"
             height="285px"
@@ -38,5 +39,5 @@
     <br><br>
     {% endfor %}
 </div>
-</html>
 {% endif %}
+{% endblock section%}

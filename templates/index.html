@@ -15,16 +15,20 @@
         <a href="#">Homepage</a>
         </div>
         <ul class="navbar__menu">
+            {% if session['id'] %}
             <li class="navbar__menuitem">
-                <!-- <a href="/myaccount/{{ session['idx'] }}">MyPage</a> -->
+                <!--<a href="/myaccount/{{ session['id'] }}">MyPage</a>-->
                 <a href="/myaccount/3">MyPage</a>
             </li>
+           
             <li class="navbar__menuitem">
-                <a href="#">Logout</a>
+                <a href="/logout">logout</a>
             </li>
+            {% else %}
             <li class="navbar__menuitem">
-                <a href="/login">Login</a>
+                <a href="/login">login</a>
             </li>
+            {% endif %}
             <li class="navbar__menuitem">
                 <a href="/board">Board</a>
             </li>
@@ -42,9 +46,17 @@
         <i class="fas fa-bars"></i>
         </a>
     </nav>
-    <!--   메인   -->
+    <!--   다른 HTML에서 작성되는 부분   -->
+    <section>
+        {% block section %}
     <main>
-        Home
+        {% if session['id'] %}
+        {{session['id']}}님 반갑습니다!
+        {%else%}
+        누구세요?
+        {%endif%}
     </main>
+        {% endblock section %}
+    </section>
 </body>
 </html>
