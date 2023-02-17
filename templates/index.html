@@ -1,62 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script src="{{ url_for('static', filename='main.js') }}" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
+  </head>
+  <body>
     <!--   메뉴바   -->
-    <!-- {% if session['id'] %} {% else %} {% endif %} -->
     <nav class="navbar">
-        <div class="navbar__logo">
+      <div class="navbar__logo">
         <a href="#">Homepage</a>
-        </div>
-        <ul class="navbar__menu">
-            {% if session['id'] %}
-            <li class="navbar__menuitem">
-                <!--<a href="/myaccount/{{ session['id'] }}">MyPage</a>-->
-                <a href="/myaccount/3">MyPage</a>
-            </li>
-           
-            <li class="navbar__menuitem">
-                <a href="/logout">logout</a>
-            </li>
-            {% else %}
-            <li class="navbar__menuitem">
-                <a href="/login">login</a>
-            </li>
-            {% endif %}
-            <li class="navbar__menuitem">
-                <a href="/board">Board</a>
-            </li>
-            <li class="navbar__menuitem">
-                <a href="/notice">Notice</a>
-            </li>
-            <li class="navbar__menuitem">
-                <a href="/list">List</a>
-            </li>
-            <li class="navbar__menuitem">
-                <a href="/register_restaurant">Register_restaurant</a>
-            </li>
-        </ul>
-        <a href="#" class="navbar__toogleBtn">
+      </div>
+      <ul class="navbar__menu">
+        {% if session.get('logFlag') %}
+        <li class="navbar__menuitem">
+          <a href="/myaccount">MyPage</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="navbar__menuitem">
+          <a href="/login">Login</a>
+        </li>
+        {% endif %}
+        <li class="navbar__menuitem">
+          <a href="/board">Board</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/notice">Notice</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/list">List</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/register_restaurant">Register_restaurant</a>
+        </li>
+      </ul>
+      <a href="#" class="navbar__toogleBtn">
         <i class="fas fa-bars"></i>
-        </a>
+      </a>
     </nav>
+
     <!--   다른 HTML에서 작성되는 부분   -->
     <section>
-        {% block section %}
-    <main>
-        {% if session['id'] %}
-        {{session['id']}}님 반갑습니다!
-        {%else%}
-        누구세요?
-        {%endif%}
-    </main>
-        {% endblock section %}
+      {% block section %}
+      <main>
+        {% if session['id'] %} {{session['id']}}님 반갑습니다! {%else%}
+        누구세요? {%endif%}
+      </main>
+      {% endblock section %}
     </section>
-</body>
+  </body>
 </html>

@@ -1,72 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyAccount</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
     <script src="{{ url_for('static', filename='main.js') }}" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <!--   메뉴바   -->
     <nav class="navbar">
-        <div class="navbar__logo">
+      <div class="navbar__logo">
         <a href="#">Homepage</a>
-        </div>
-        <ul class="navbar__menu">
-            <!-- {% if session['id'] %} -->
-            <li class="navbar__menuitem">
-                <!-- <a href="/myaccount/{{ session['idx'] }}">MyPage</a> -->
-            </li>
-            <li class="navbar__menuitem">
-                <a href="#">Logout</a>
-            </li>
-            <!-- {% else %} -->
-            <li class="navbar__menuitem">
-                <a href="/login">Login</a>
-            </li>
-            <!-- {% endif %} -->
-            <li class="navbar__menuitem">
-                <a href="/board">Board</a>
-            </li>
-            <li class="navbar__menuitem">
-                <a href="/notice">Notice</a>
-            </li>
-        </ul>
-        <a href="#" class="navbar__toogleBtn">
+      </div>
+      <ul class="navbar__menu">
+        {% if session.get('logFlag') %}
+        <li class="navbar__menuitem">
+          <a href="/myaccount">MyPage</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="navbar__menuitem">
+          <a href="/login">Login</a>
+        </li>
+        {% endif %}
+        <li class="navbar__menuitem">
+          <a href="/board">Board</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/notice">Notice</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/list">List</a>
+        </li>
+        <li class="navbar__menuitem">
+          <a href="/register_restaurant">Register_restaurant</a>
+        </li>
+      </ul>
+      <a href="#" class="navbar__toogleBtn">
         <i class="fas fa-bars"></i>
-        </a>
+      </a>
     </nav>
     <!--   메인   -->
     <main>
-        <!--     form     -->
-        <div class="formbox">
-            <form class="login-form" action="#" method="post">
-                <!-- <input type="hidden" name="idx" value="{{ u_idx }}"/> -->
-                <input type="hidden" name="idx" value="3"/> 
-                <div class="login-form__row">
-                    <text>ID :  </text>
-                    <!--      ID      -->
-                    <!-- <input type="text" name="user_id" value="{{ session.get('id') }}" disabled/> -->
-                    <input type="text" name="user_id" value="idid" disabled/>
-                </div>
-                <div class="login-form__row">
-                    <text>PW :  </text>
-                    <!--   PASSWORD   -->    
-                    <!-- <input type="text" name="user_pw" value="{{ user_pw }}" disabled/> -->
-                    <input type="text" name="user_pw" value="pwpw" disabled/>
-                </div>
-                <div class="login-form__row">
-                    <!-- {% if session.get('logFlag') %} -->
-                    <!-- 정보 변경 페이지로 이동 -->
-                    <!-- <a href="myaccount_edit/{{ session['idx'] }}.html">비밀번호 변경</a> -->
-                    <a href="myaccount_edit/3.html">비밀번호 변경</a> 
-                    <!-- {% endif %} -->
-                </div>
-            </form>
-        </div>
+      <!--     form     -->
+      <div class="formbox">
+        <form class="login-form" action="/myaccount" method="post">
+          <div class="login-form__row">
+            <text>ID : </text>
+            <!--      ID      -->
+            <input type="text" name="id" value="{{ id }}" disabled />
+          </div>
+          <div class="login-form__row">
+            <text>PW : </text>
+            <!--   PASSWORD   -->
+            <input type="text" name="pw" value="{{ pw }}" disabled />
+          </div>
+          <div class="login-form__row">
+            <a href="/myaccount_edit">비밀번호 변경</a>
+          </div>
+        </form>
+      </div>
     </main>
-</body>
+  </body>
 </html>
-
-

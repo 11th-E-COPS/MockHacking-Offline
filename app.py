@@ -112,7 +112,7 @@ def register_user():
     conn.row_factory = sqlite3.Row
 
     id_=request.form['id']
-    pw_=request.form['pw']
+    pw_=request.form['pw']  
     
     cor.execute("INSERT INTO user(id, pw) VALUES(?,?)",(id_,pw_))
     conn.commit()
@@ -127,12 +127,16 @@ def login():
 @application.route("/login_confirm", methods=['POST'])
 def login_user():
 
-    id_=request.form['id']
-    pw_=request.form['pw']
+    if request.method == 'POST':
+        id_=request.form['id']
+        pw_=request.form['pw']
         
-    if DB.find_user(id_, pw_):
-       session['id']=id_
-       return redirect('/')
+        if DB.find_user(id_, pw_):
+            session['logFlag'] = True
+            session['id']=id_
+            return redirect(url_for('view_list'))
+        else:
+            return redirect(url_for('login'))
     else:
         return render_template("login.html")
 
@@ -146,61 +150,50 @@ def logout():
 def view_notice():
     return render_template("notice.html")
 
-@application.route("/myaccount/3")
+# db에서 사용자 비번 조회해서 넘겨주기
+@application.route("/myaccount")
 def getUser():
-    #@app.route("/myaccount/<int:u_idx>", method=['GET'])
-    #def getUser(u_idx):
-    # if session.get('logFlag') != True:
-    #     return redirect(url_for('login'))
-    
-    # 사용자 정보 가져와서 출력
-    #conn = sqlite3.conect(db_file)
-    # conn = sqlite3.conect('')
-    # cursor = conn.cursor()
-    # sql = "select pw from member where idx = ?"
-    # cursor.execute(sql, (u_idx,))
-    # row = cursor.fetchone()
-    # user_pw=row['pw']
-    # return render_template('myaccount.html', u_idx=u_idx, user_pw=user_pw)
-    return render_template('myaccount.html')
-
-
-@application.route("/myaccount_edit/3")
-def tmpUser(edit_idx):
-    #@app.route("/myaccount_edit/<int:edit_idx>", method=['GET'])
-    # if session.get('logFlag') != True:
-    #     return redirect(url_for(hello))
-    # 사용자 정보 가져오고 입력 받아서 넘겨주기    
-    #conn = sqlite3.conect(db_file)
-    conn = sqlite3.conect('')
+    if session.get('logFlag') != True:
+        return redirect('/login')   
+    conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    sql = "select pw from member where idx = ?"
-    cursor.execute(sql, (edit_idx,))
+    sql = "select pw from user where id = ?"
+    id= session['id']
+    cursor.execute(sql, (id,))
     row = cursor.fetchone()
-    edit_pw=row['pw']
-    return render_template('myaccount_edit.html', edit_idx=edit_idx, edit_pw=edit_pw)
+    user_pw=row[0]
+    return render_template('myaccount.html', id=id, pw=user_pw)
 
-
-@application.route("/myaccount_edit_ok")
+# db에서 사용자 비번 조회해서 넘겨주기
+@application.route("/myaccount_edit")
 def editUser():
-    # @app.route("/myaccount_edit_ok", method=['POST'])
-    idx=request.form['idx']
-    user_id=request.form['user_id']
-    user_pw=request.form['user_pw']
-    
-    # 사용자 정보 수정
-    #conn = sqlite3.conect(db_file)
-    conn = sqlite3.conect('')
+    if session.get('logFlag') != True:
+        return redirect('/login')   
+    conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    sql = "update member set pw=? where idx = ?"
-    cursor.execute(sql, (user_pw,idx))
+    sql = "select pw from user where id = ?"
+    id= session['id']
+    cursor.execute(sql, (id,))
+    row = cursor.fetchone()
+    user_pw=row[0]
+    return render_template('myaccount_edit.html', id=id, pw=user_pw)
+
+
+# db에서 사용자 정보 수정
+@application.route("/myaccount_edit_proc", methods=['POST'])
+def myaccount_edit_proc():
+    uid=session['id']
+    upw=request.form['pw']
+    
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    sql = "update user set pw=? where id = ?"
+    cursor.execute(sql, (upw,uid))
     conn.commit()
     cursor.close()
     conn.close()
-    return redirect(url_for(hello))
+    return redirect('/login')
     
-    
-# app.secret_key
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', port=5000, debug=True)
