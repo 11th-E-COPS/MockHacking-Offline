@@ -80,9 +80,46 @@ def reg_review():
 def view_board():
     return render_template("board.html")
 
+@application.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+@application.route("/signup_post", methods=['POST'])
+def register_user():
+    conn=sqlite3.connect("database.db", check_same_thread=False) 
+    cor = conn.cursor()
+    conn.row_factory = sqlite3.Row
+
+    id_=request.form['id']
+    pw_=request.form['pw']
+    
+    cor.execute("INSERT INTO user(id, pw) VALUES(?,?)",(id_,pw_))
+    conn.commit()
+    conn.close()
+    
+    return redirect('/login')
+
 @application.route("/login")
 def login():
     return render_template("login.html")
+
+@application.route("/login_confirm", methods=['POST'])
+def login_user():
+
+    id_=request.form['id']
+    pw_=request.form['pw']
+        
+    if DB.find_user(id_, pw_):
+       session['id']=id_
+       return redirect(url_for('list'))
+    else:
+        return render_template("login.html")
+
+
+@application.route("/logout", methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('/')
 
 @application.route("/notice")
 def view_notice():

@@ -87,6 +87,19 @@ class DBhandler:
         con.close()
         return
 
+    def find_user(self, id_, pw_):
+        con=sqlite3.connect("database.db", check_same_thread=False) 
+        cur = con.cursor()
+        con.row_factory = sqlite3.Row
+
+        cur.execute('SELECT * FROM user')
+        r = cur.fetchall()
+        for row in r:
+            if  row['id']==id_ and row['pw']==pw_:
+                return True
+            else:
+                return False
+
 
 
         
