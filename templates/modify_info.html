@@ -1,0 +1,58 @@
+<form enctype="multipart/form-data" action="/modify_restaurant_post" method="post" >
+    <div>
+        <div>
+            <label for="img">Representative Image upload : </label>
+             <!--   기본 이미지 경로 안뜨는거 수정 필요  -->
+            <input type="file" name="file" value={{datas.img_path}}/><br><br>
+            </div>
+        <br><br>
+            <input type="hidden" name="origin_name" id="origin_name" value={{datas.name}}>
+            <label for="name">Restaurant name: </label>
+            <input type="text" name="name" id="name" required value ={{datas.name}}><br><br>
+        </div>
+        <div>
+            <label for="addr">Restaurant address: </label>
+            <input type="text" name="addr" id="addr" required value="{{datas.addr}}"><br><br>
+        </div>
+        <div>
+            <label for="tel">Restaurant Tel.: </label>
+            <input type="text" name="tel" id="tel" required  value="{{datas.tel}}"><br><br>
+        </div>
+        <div>
+            <label for="category">Food category: </label>
+        <br>
+        <select id="category" name="category">
+            <option value="Korean" selected>Korean</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+        </select>
+        <br><br>
+    </div>
+    <div>
+        <label for="park">Parking (Y/N): </label>
+        <br>
+        <select id="park" name="park">
+            {% if datas['park'] == "Y" %}
+            <option value="Y" selected>Yes</option>
+            <option value="N">No</option>
+            {% endif %}
+
+            {% if datas['park'] == "N" %}
+            <option value="Y">Yes</option>
+            <option value="N" selected>No</option>
+            {% endif %}
+        </select><br><br>
+        </div>
+        <div>
+            <label for="time">Open/Close Time : </label>
+            <input type="text" name="time" id="time" value="{{datas.time}}"><br><br>
+        </div>
+        <div>
+            <label for="site">Homepage URL : </label>
+            <input type="text" name="site" id="site" value="{{datas.site}}"><br><br>
+        </div>
+        <div>
+        <input type="submit" value="Modify!"><br><br>
+    </div>
+</form>
