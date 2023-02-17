@@ -112,7 +112,7 @@ def login_user():
         
     if DB.find_user(id_, pw_):
        session['id']=id_
-       return redirect(url_for('view_list'))
+       return redirect('/')
     else:
         return render_template("login.html")
 
