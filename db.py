@@ -49,7 +49,6 @@ class DBhandler:
         con = sqlite3.connect("database.db")
         cur = con.cursor()
 
-
         sql = "UPDATE restaurant SET name='%s',addr='%s',category='%s', img_path='%s',park='%s',site='%s', tel='%s',time='%s', writer='%s' WHERE name='%s'" % (data['name'], data['addr'], data['category'], img_path, data['park'],data['site'],data['tel'],data['time'],data['writer'], name)
         cur.execute(sql)
         con.commit()

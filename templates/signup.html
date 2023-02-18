@@ -1,10 +1,24 @@
-{% extends "index.html" %}
-
-{% block section %}
-        <h1>회원가입</h1>
-        <form action="/signup_post" method="post">
-        <p>ID : <input type = "text" name = "id" required></p>
-        <p>passwd : <input type = "password" name = "pw" required></p>
-        <p>아이디와 비밀번호를 입력하고 생성 버튼을 누르세요. <br><input type ="submit" value ="생성"/></p>
-        </form>
+{% extends "index.html" %} {% block section %}
+<section>
+  <h1>아이디와 비밀번호를 입력하고 회원가입하세요.</h1>
+  <div class="formbox">
+    <form class="login-form" action="/signup_post" method="post">
+      <div class="login-form__r">
+        <div class="login-form__row">
+          <text>ID : </text>
+          <input type="text" name="id" required />
+        </div>
+        <div class="login-form__row">
+          <text>PW : </text>
+          <input type="password" name="pw" required />
+        </div>
+      </div>
+      <div class="login-form__r">
+        <div class="login-form__r login-form__row_c">
+          <input type="submit" value="회원가입" />
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
 {% endblock section %}

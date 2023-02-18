@@ -1,55 +1,70 @@
-{% extends "index.html" %}
-{% block section %}
-{% if session['id']%}
-<form enctype="multipart/form-data" action="/submit_restaurant_post" method="post">
-    <div>
-        <input type="hidden" name="writer" id="writer" value="{{session['id']}}">
-        <div>
-            <label for="img">Representative Image upload : </label>
-            <input type="file" name="file" required/><br><br>
-            </div>
-        <br><br>
-            <label for="name">Restaurant name: </label>
-            <input type="text" name="name" id="name" required><br><br>
+{% extends "index.html" %} {% block section %} {% if session['id'] %}
+<section>
+  <h1>맛집 등록</h1>
+  <!--     form     -->
+  <div class="formbox formbox_lg">
+    <form
+      class="login-form"
+      enctype="multipart/form-data"
+      action="/submit_restaurant_post"
+      method="post"
+    >
+      <div class="login-form__r">
+        <input
+          type="hidden"
+          name="writer"
+          id="writer"
+          value="{{session['id']}}"
+        />
+        <div class="login-form__row">
+          <label for="img">사진 업로드 </label>
+          <input type="file" name="file" required />
         </div>
-        <div>
-            <label for="addr">Restaurant address: </label>
-            <input type="text" name="addr" id="addr" required><br><br>
+        <div class="login-form__row">
+          <label for="name">식당 이름 </label>
+          <input type="text" name="name" id="name" required />
         </div>
-        <div>
-            <label for="tel">Restaurant Tel.: </label>
-            <input type="text" name="tel" id="tel" required><br><br>
+        <div class="login-form__row">
+          <label for="addr">식당 주소 </label>
+          <input type="text" name="addr" id="addr" required />
         </div>
-        <div>
-            <label for="category">Food category: </label>
-        <br>
-        <select id="category" name="category">
-            <option value="Korean" selected>Korean</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Italian">Italian</option>
-            <option value="Japanese">Japanese</option>
-        </select>
-        <br><br>
-    </div>
-    <div>
-        <label for="park">Parking (Y/N): </label>
-        <br>
-        <select id="park" name="park">
+        <div class="login-form__row">
+          <label for="tel">식당 전화번호 </label>
+          <input type="text" name="tel" id="tel" required />
+        </div>
+        <div class="login-form__row">
+          <label for="category">음식 종류 </label>
+          <select id="category" name="category">
+            <option value="Korean" selected>한식</option>
+            <option value="Chinese">중식</option>
+            <option value="Italian">양식</option>
+            <option value="Japanese">일식</option>
+          </select>
+        </div>
+        <div class="login-form__row">
+          <label for="park">주차 (Y/N) </label>
+          <select id="park" name="park">
             <option value="Y" selected>Yes</option>
             <option value="N">No</option>
-        </select><br><br>
+          </select>
         </div>
-        <div>
-            <label for="time">Open/Close Time : </label>
-            <input type="text" name="time" id="time"><br><br>
+        <div class="login-form__row">
+          <label for="time">운영 시간 </label>
+          <input type="text" name="time" id="time" />
         </div>
-        <div>
-            <label for="site">Homepage URL : </label>
-            <input type="text" name="site" id="site"><br><br>
+        <div class="login-form__row">
+          <label for="site">홈페이지 </label>
+          <input type="text" name="site" id="site" />
         </div>
-        <div>
-        <input type="submit" value="Submit!"><br><br>
-    </div>
-</form>
-{%else%}<main>누구세요?</main> {%endif%}
-{% endblock section %}
+      </div>
+      <div class="login-form__r">
+        <div class="login-form__btn">
+          <input type="submit" value="등록하기" />
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{%else%}
+<main>누구세요?</main>
+{%endif%} {% endblock section %}

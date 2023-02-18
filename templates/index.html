@@ -8,53 +8,54 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
     <script src="{{ url_for('static', filename='main.js') }}" defer></script>
   </head>
   <body>
     <!--   메뉴바   -->
     <nav class="navbar">
-      <div class="navbar__logo">
-        <a href="#">Homepage</a>
-      </div>
       <ul class="navbar__menu">
+        <li class="navbar__menuitem">
+          <a href="/">홈</a>
+        </li>
         {% if session.get('logFlag') %}
         <li class="navbar__menuitem">
-          <a href="/myaccount">MyPage</a>
+          <a href="/myaccount">내 정보</a>
         </li>
         <li class="navbar__menuitem">
-          <a href="/logout">Logout</a>
+          <a href="/logout">로그아웃</a>
         </li>
         {% else %}
         <li class="navbar__menuitem">
-          <a href="/login">Login</a>
+          <a href="/login">로그인</a>
         </li>
         {% endif %}
         <li class="navbar__menuitem">
-          <a href="/board">Board</a>
+          <a href="/list">맛집 리스트</a>
         </li>
         <li class="navbar__menuitem">
-          <a href="/notice">Notice</a>
+          <a href="/register_restaurant">맛집 등록</a>
         </li>
+        {% if session.get('id') == 'admin' %}
         <li class="navbar__menuitem">
-          <a href="/list">List</a>
+          <a href="/notice">관리자</a>
         </li>
-        <li class="navbar__menuitem">
-          <a href="/register_restaurant">Register_restaurant</a>
-        </li>
+        {% endif %}
       </ul>
-      <a href="#" class="navbar__toogleBtn">
-        <i class="fas fa-bars"></i>
-      </a>
     </nav>
 
     <!--   다른 HTML에서 작성되는 부분   -->
+    {% block section %}
     <section>
-      {% block section %}
-      <main>
-        {% if session['id'] %} {{session['id']}}님 반갑습니다! {%else%}
-        누구세요? {%endif%}
-      </main>
-      {% endblock section %}
+      {% if session['id'] %}
+      <h1>{{session['id']}} 님 반갑습니다!</h1>
+      {%else%}
+      <h1>누구세요?</h1>
+      {%endif%}
     </section>
+    {% endblock section %}
   </body>
 </html>

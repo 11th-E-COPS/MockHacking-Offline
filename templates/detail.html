@@ -1,82 +1,101 @@
-{%with messages = get_flashed_messages()%}
-  {%if messages %}
-    <script type="text/javascript">
-      alert("{{messages[-1]}}");
-    </script>
-    {%endif%}
-{%endwith%}
-{% extends "index.html" %}
-{% block section %}
-    <div class="title">
-      <h2><span class="res-name">{{name}}</span></h2>
-    </div>
-    <div>
-      <p>Wrtier is {{data.writer}}</p>
-    </div>
-    <table class="info-table">
-      <tbody>
-        <tr>
-          <th colspan="2" class="fontset">맛집 대표사진</th>
-        </tr>
-        <tr>
-          <td colspan="2" style="text-align: center">
-            <img
-              name="img"
-              width="250px"
-              height="220px"
-              src="/static/{{data.img_path}}"
-              alt="맛집 대표사진"
-            />
-          </td>
-        </tr>
-        <tr height="2em">
-          <th colspan="2" class="fontset">맛집 세부 정보</th>
-        </tr>
-        <tr>
-          <th class="info-th">카테고리</th>
-          <td>{{data.category}}</td>
-        </tr>
+{%with messages = get_flashed_messages()%} {%if messages %}
+<script type="text/javascript">
+  alert("{{messages[-1]}}");
+</script>
+{%endif%} {%endwith%} {% extends "index.html" %} {% block section %}
+<section>
+  <h1>{{name}}</h1>
+  <h1>작성자: {{data.writer}}</h1>
+  </div></h1>
+  <!--     form     -->
+  <div class="formbox formbox_lg">
+    <form
+      class="login-form"
+      enctype="multipart/form-data"
+      action="#"
+      method="post"
+    >
+      <div class="login-form__r">
+        <div class="login-form__img">
+          <img
+            name="img"
+            class="post-img"
+            src="/static/{{data.img_path}}"
+            alt="image"
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="name">식당 이름 </label>
+          <input
+            type="text"
+            name="name"
+            value="{{data.name}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="addr">식당 주소 </label>
+          <input
+            type="text"
+            name="addr"
+            value="{{data.addr}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="tel">식당 전화번호 </label>
+          <input
+            type="text"
+            name="tel"
+            value="{{data.tel}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="tel">음식 종류 </label>
+          <input
+            type="text"
+            name="category"
+            value="{{data.category}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="tel">주차 (Y/N) </label>
+          {% if data['park'] == "Y" %}
+          <input type="text" name="park" value="가능" disabled required />
+          {% endif %} {% if data['park'] == "N" %}
+          <input type="text" name="park" value="불가능" disabled required />
+          {% endif %}
+        </div>
 
-        <tr>
-          <th class="info-th">영업 시간</th>
-          <td>{{data.time}}</td>
-        </tr>
-        <tr>
-          <th class="info-th">전화 번호</th>
-          <td>{{data.tel}}</td>
-        </tr>
-        <tr>
-          <th class="info-th">맛집 사이트</th>
-          <td>
-            <a href="{{data.site}}">{{data.site}}</a>
-          </td>
-        </tr>
-        <tr>
-          <th class="info-th">주차</th>
-          <td>
-            {% if data['park'] == "Y" %} 가능합니다. {% endif %} {% if data['park']
-            == "N" %} 불가능합니다. {% endif %}
-          </td>
-        </tr>
-        <tr>
-          <th class="info-th">주소</th>
-          <td>{{data.addr}}</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <br /><br />
-
-    <form method="post" action="/modify">
+        <div class="login-form__row">
+          <label for="time">운영 시간 </label>
+          <input type="text" name="time" value="{{data.time}}" disabled />
+        </div>
+        <div class="login-form__row">
+          <label for="site">홈페이지 </label>
+          <input type="text" name="site" value="{{data.site}}" disabled />
+        </div>
+      </div>
+    </form>
+    <div class="login-form__row login-form__row_t">
+      <form method="post" action="/modify">
         <input type="hidden" name="name" value="{{data.name}}" />
         <input type="hidden" name="writer" value="{{data.writer}}" />
         <button type="submit" name="menu">수정</button>
-    </form>
-    <form method="post" action="/remove">
+      </form>
+      <form method="post" action="/remove">
         <input type="hidden" name="name" value="{{data.name}}" />
         <input type="hidden" name="writer" value="{{data.writer}}" />
         <button type="submit" name="menu">삭제</button>
-    </form>
-    <button onclick="location.href='/list'">목록</button>
-    
+      </form>
+      <button onclick="location.href='/list'">목록</button>
+    </div>
+  </div>
+</section>
 {% endblock section %}

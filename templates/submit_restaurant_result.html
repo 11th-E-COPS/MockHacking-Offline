@@ -1,27 +1,76 @@
-{% extends "index.html" %}
-{% block section %}
+{% extends "index.html" %} {% block section %}
 <section>
-    <p>Writer is {{data.writer}}</p>p>
-    <p>
-    restaurant name is {{data.name}} and address is {{data.addr}}
-    </p>
-    <p>
-    restaurant tel. is {{data.tel}} and category is {{data.category}}
-    </p>
-    <p>
-    Parking is 
-    {% if data['park'] == "Y" %}
-    available
-    {% endif %}
-    {% if data['park'] == "N" %}
-    NOT available
-    {% endif %}
-    and Open/Close time is {{data.time}}
-    <img src="{{image_path}}" alt="My Image">
+  <!--     form     -->
+  <div class="formbox formbox_lg">
+    <form
+      class="login-form"
+      enctype="multipart/form-data"
+      action="/submit_restaurant_post"
+      method="post"
+    >
+      <div class="login-form__r">
+        <div class="login-form__img">
+          <img class="post-img" src="{{image_path}}" alt="image" />
+        </div>
+        <div class="login-form__row">
+          <label for="name">식당 이름 </label>
+          <input
+            type="text"
+            name="name"
+            value="{{data.name}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="addr">식당 주소 </label>
+          <input
+            type="text"
+            name="addr"
+            value="{{data.addr}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="tel">식당 전화번호 </label>
+          <input
+            type="text"
+            name="tel"
+            value="{{data.tel}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="tel">음식 종류 </label>
+          <input
+            type="text"
+            name="category"
+            value="{{data.category}}"
+            disabled
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="tel">주차 (Y/N) </label>
+          {% if data['park'] == "Y" %}
+          <input type="text" name="park" value="가능" disabled required />
+          {% endif %} {% if data['park'] == "N" %}
+          <input type="text" name="park" value="불가능" disabled required />
+          {% endif %}
+        </div>
 
-    </p>
-
-    
+        <div class="login-form__row">
+          <label for="time">운영 시간 </label>
+          <input type="text" name="time" value="{{data.time}}" disabled />
+        </div>
+        <div class="login-form__row">
+          <label for="site">홈페이지 </label>
+          <input type="text" name="site" value="{{data.site}}" disabled />
+        </div>
+      </div>
+    </form>
+  </div>
 </section>
 {% endblock section %}
-    

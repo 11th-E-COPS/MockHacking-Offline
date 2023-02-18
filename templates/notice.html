@@ -1,7 +1,9 @@
-{% extends "index.html" %}
-{% block section %}
-{% if session['id'] == 'admin' %}
-<h1>공지사항</h1>
-{%else%}<main>관리자가 아닙니다</main> {%endif%}
+{% extends "index.html" %} {% block section %}
+<section>
+  {% if session['id'] == 'admin' %}
+  <h1>공지사항</h1>
+  {%else%}
+  <main>관리자가 아닙니다</main>
+  {%endif%} {% endblock section %}
+</section>
 {% endblock section %}
-ㅖ

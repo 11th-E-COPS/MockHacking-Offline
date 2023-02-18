@@ -1,75 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyAccount_Edit</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
-  </head>
-  <body>
-    <!--   메뉴바   -->
-    <nav class="navbar">
-      <div class="navbar__logo">
-        <a href="#">Homepage</a>
+{% extends "index.html" %} {% block section %}
+<!--   메인   -->
+<section>
+  <h1>새 비밀번호를 입력하고 '변경하기' 버튼을 눌러주세요.</h1>
+  <!--     form     -->
+  <div class="formbox">
+    <form class="login-form" action="/myaccount_edit_proc" method="post">
+      <div class="login-form__r">
+        <div class="login-form__row">
+          <text>ID : </text>
+          <!--      ID      -->
+          <input type="text" name="id" value="{{ id }}" disabled />
+        </div>
+        <div class="login-form__row">
+          <text>PW : </text>
+          <!--   PASSWORD   -->
+          <input type="text" name="pw" value="{{ pw }}" />
+        </div>
       </div>
-      <ul class="navbar__menu">
-        {% if session.get('logFlag') %}
-        <li class="navbar__menuitem">
-          <a href="/myaccount">MyPage</a>
-        </li>
-        <li class="navbar__menuitem">
-          <a href="/logout">Logout</a>
-        </li>
-        {% else %}
-        <li class="navbar__menuitem">
-          <a href="/login">Login</a>
-        </li>
-        {% endif %}
-        <li class="navbar__menuitem">
-          <a href="/board">Board</a>
-        </li>
-        <li class="navbar__menuitem">
-          <a href="/notice">Notice</a>
-        </li>
-        <li class="navbar__menuitem">
-          <a href="/list">List</a>
-        </li>
-        <li class="navbar__menuitem">
-          <a href="/register_restaurant">Register_restaurant</a>
-        </li>
-      </ul>
-      <a href="#" class="navbar__toogleBtn">
-        <i class="fas fa-bars"></i>
-      </a>
-    </nav>
-    <!--   메인   -->
-    <main>
-      <!--     form     -->
-      <div class="formbox">
-        <form class="login-form" action="/myaccount_edit_proc" method="post">
-          <div class="login-form__r">
-            <div class="login-form__row">
-              <text>ID : </text>
-              <!--      ID      -->
-              <input type="text" name="id" value="{{ id }}" disabled />
-            </div>
-            <div class="login-form__row">
-              <text>PW : </text>
-              <!--   PASSWORD   -->
-              <input type="text" name="pw" value="{{ pw }}" />
-            </div>
-          </div>
-          <div class="login-form__r">
-            <div class="login-form__row">
-              <input type="submit" value="수정" />
-            </div>
-          </div>
-        </form>
+      <div class="login-form__r">
+        <div class="login-form__r login-form__row_c">
+          <input type="submit" value="변경하기" />
+        </div>
       </div>
-    </main>
-  </body>
-</html>
+    </form>
+  </div>
+</section>
+{% endblock section %}

@@ -1,64 +1,96 @@
-{% extends "index.html" %}
-{% block section %}
-<form enctype="multipart/form-data" action="/modify_restaurant_post" method="post" >
-    <div>
-        <input type="hidden" name="writer" id="writer" value="{{session['id']}}">
-        <div>
-            <input type="hidden" name="origin_img_path" id="origin_img_path" value={{datas.img_path}}>
-            <label for="img">Representative Image upload : </label>
-             <!--   기본 이미지 경로 안뜨는거 수정 필요  -->
-            <input type="file" name="file" value={{img_path}}/><br><br>
-            </div>
-        <br><br>
-            <input type="hidden" name="origin_name" id="origin_name" value={{datas.name}}>
-            <label for="name">Restaurant name: </label>
-            <input type="text" name="name" id="name" required value ={{datas.name}}><br><br>
+{% extends "index.html" %} {% block section %}f
+<section>
+  <h1>맛집 수정</h1>
+  <!--     form     -->
+  <div class="formbox formbox_lg">
+    <form
+      class="login-form"
+      enctype="multipart/form-data"
+      action="/modify_restaurant_post"
+      method="post"
+    >
+      <input
+        type="hidden"
+        name="writer"
+        id="writer"
+        value="{{session['id']}}"
+      />
+      <div class="login-form__r">
+        <input
+          type="hidden"
+          name="origin_img_path"
+          id="origin_img_path"
+          value="{{datas.img_path}}"
+        />
+        <div class="login-form__row">
+          <label for="img">사진 업로드 </label>
+          <input type="file" name="file" value="{{datas.img_path}}" />
         </div>
-        <div>
-            <label for="addr">Restaurant address: </label>
-            <input type="text" name="addr" id="addr" required value="{{datas.addr}}"><br><br>
+        <input
+          type="hidden"
+          name="origin_name"
+          id="origin_name"
+          value="{{datas.name}}"
+        />
+        <div class="login-form__row">
+          <label for="name">식당 이름 </label>
+          <input type="text" name="name" value="{{datas.name}} id="name"
+          required />
         </div>
-        <div>
-            <label for="tel">Restaurant Tel.: </label>
-            <input type="text" name="tel" id="tel" required  value="{{datas.tel}}"><br><br>
+        <div class="login-form__row">
+          <label for="addr">식당 주소 </label>
+          <input type="text" name="addr" value="{{datas.addr}} id="addr"
+          required />
         </div>
-        <div>
-            <label for="category">Food category: </label>
-        <br>
-        <select id="category" name="category">
-            <option value="Korean" selected>Korean</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Italian">Italian</option>
-            <option value="Japanese">Japanese</option>
-        </select>
-        <br><br>
-    </div>
-    <div>
-        <label for="park">Parking (Y/N): </label>
-        <br>
-        <select id="park" name="park">
+        <div class="login-form__row">
+          <label for="tel">식당 전화번호 </label>
+          <input
+            type="text"
+            name="tel"
+            id="tel"
+            value="{{datas.tel}}"
+            required
+          />
+        </div>
+        <div class="login-form__row">
+          <label for="category">음식 종류 </label>
+          <select id="category" name="category">
+            <option value="Korean" selected>한식</option>
+            <option value="Chinese">중식</option>
+            <option value="Italian">양식</option>
+            <option value="Japanese">일식</option>
+          </select>
+        </div>
+        <div class="login-form__row">
+          <label for="park">주차 (Y/N) </label>
+          <select id="park" name="park">
             {% if datas['park'] == "Y" %}
             <option value="Y" selected>Yes</option>
             <option value="N">No</option>
-            {% endif %}
-
-            {% if datas['park'] == "N" %}
+            {% endif %} {% if datas['park'] == "N" %}
             <option value="Y">Yes</option>
             <option value="N" selected>No</option>
             {% endif %}
-        </select><br><br>
+          </select>
         </div>
-        <div>
-            <label for="time">Open/Close Time : </label>
-            <input type="text" name="time" id="time" value="{{datas.time}}"><br><br>
+        <div class="login-form__row">
+          <label for="time">운영 시간 </label>
+          <input type="text" name="time" id="time" value="{{datas.time}}" />
         </div>
-        <div>
-            <label for="site">Homepage URL : </label>
-            <input type="text" name="site" id="site" value="{{datas.site}}"><br><br>
+        <div class="login-form__row">
+          <label for="site">홈페이지 </label>
+          <input type="text" name="site" id="site" value="{{datas.site}}" />
         </div>
-        <div>
-        <input type="submit" value="Modify!"><br><br>
-    </div>
-    <button onclick="location.href='/list'">취소</button>
-</form>
+      </div>
+      <div class="login-form__r">
+        <div class="login-form__btn">
+          <input type="submit" value="수정하기" />
+        </div>
+      </div>
+      <div class="login-form__r login-form__row_c">
+        <a href="/list">취소</a>
+      </div>
+    </form>
+  </div>
+</section>
 {% endblock section %}
