@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block section %}
+{% if session['id'] %}
 <form enctype="multipart/form-data" action="/submit_restaurant_post" method="post">
     <div>
         <div>
@@ -49,4 +50,5 @@
         <input type="submit" value="Submit!"><br><br>
     </div>
 </form>
+{%else%}<main>누구세요?</main> {%endif%}
 {% endblock section %}

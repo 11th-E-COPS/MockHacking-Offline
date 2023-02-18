@@ -72,20 +72,19 @@ def remove():
     data = request.form
     DB.remove_restaurant(data['name'])
     return view_list()
+
 @application.route("/modify",methods=['POST'])
 def modify():
     data = request.form
     datas = DB.get_restaurant_byname(data['name'])
-    #print(datas)
     return render_template("modify_info.html", datas=datas)
 
 @application.route("/modify_restaurant_post", methods=['POST'])
 def mod_restaurant_submit_post():
 
     image_file=request.files["file"]
-    #image_file.save("static/{}".format(image_file.filename))
+    image_file.save("static/{}".format(image_file.filename))
     data=request.form
-    #print(data)
 
     if DB.modify_restaurant(data['origin_name'], data, image_file.filename):
         return view_restaurant_detail(data['name'])
