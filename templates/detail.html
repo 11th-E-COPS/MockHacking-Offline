@@ -1,9 +1,18 @@
+{%with messages = get_flashed_messages()%}
+  {%if messages %}
+    <script type="text/javascript">
+      alert("{{messages[-1]}}");
+    </script>
+    {%endif%}
+{%endwith%}
 {% extends "index.html" %}
 {% block section %}
     <div class="title">
       <h2><span class="res-name">{{name}}</span></h2>
     </div>
-    
+    <div>
+      <p>Wrtier is {{data.writer}}</p>
+    </div>
     <table class="info-table">
       <tbody>
         <tr>
@@ -60,10 +69,12 @@
 
     <form method="post" action="/modify">
         <input type="hidden" name="name" value="{{data.name}}" />
+        <input type="hidden" name="writer" value="{{data.writer}}" />
         <button type="submit" name="menu">수정</button>
     </form>
     <form method="post" action="/remove">
         <input type="hidden" name="name" value="{{data.name}}" />
+        <input type="hidden" name="writer" value="{{data.writer}}" />
         <button type="submit" name="menu">삭제</button>
     </form>
     <button onclick="location.href='/list'">목록</button>

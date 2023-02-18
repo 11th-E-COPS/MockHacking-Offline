@@ -1,11 +1,12 @@
 {% extends "index.html" %}
 {% block section %}
-{% if session['id'] %}
+{% if session['id']%}
 <form enctype="multipart/form-data" action="/submit_restaurant_post" method="post">
     <div>
+        <input type="hidden" name="writer" id="writer" value="{{session['id']}}">
         <div>
             <label for="img">Representative Image upload : </label>
-            <input type="file" name="file" /><br><br>
+            <input type="file" name="file" required/><br><br>
             </div>
         <br><br>
             <label for="name">Restaurant name: </label>

@@ -44,6 +44,7 @@ def reg_restaurant_submit_post():
     image_file=request.files["file"]
     image_file.save("static/{}".format(image_file.filename))
     data=request.form
+    #print(data)
 
     if DB.insert_restaurant(data['name'], data, image_file.filename):
         return render_template("submit_restaurant_result.html", data=data, image_path="static/"+image_file.filename)
@@ -60,7 +61,7 @@ def DynamicUrl(variable_name):
 @application.route("/view_detail/<name>/")
 def view_restaurant_detail(name):
     data = DB.get_restaurant_byname(str(name))
-
+    #print(data)
     if str(data) == "None":
         flash("올바르지 않은 맛집 이름입니다.")
         return view_list()
@@ -69,22 +70,38 @@ def view_restaurant_detail(name):
 
 @application.route("/remove",methods=['POST'])
 def remove():
+
     data = request.form
+    #print(data)
+    if(session['id'] != data['writer']):
+        flash("작성자가 아닙니다.")
+        return view_restaurant_detail(data['name'])
+    
     DB.remove_restaurant(data['name'])
     return view_list()
 
 @application.route("/modify",methods=['POST'])
 def modify():
     data = request.form
+    if(session['id'] != data['writer']):
+        flash("작성자가 아닙니다.")
+        return view_restaurant_detail(data['name'])
+    
     datas = DB.get_restaurant_byname(data['name'])
+
     return render_template("modify_info.html", datas=datas)
 
 @application.route("/modify_restaurant_post", methods=['POST'])
 def mod_restaurant_submit_post():
 
     image_file=request.files["file"]
-    image_file.save("static/{}".format(image_file.filename))
+
     data=request.form
+    #print(data)
+    
+    if(image_file.filename == ''):
+            image_file.filename = (data['origin_img_path'])
+    
 
     if DB.modify_restaurant(data['origin_name'], data, image_file.filename):
         return view_restaurant_detail(data['name'])
@@ -133,6 +150,7 @@ def login_user():
         if DB.find_user(id_, pw_):
             session['logFlag'] = True
             session['id']=id_
+            #print(session)
             return redirect(url_for('view_list'))
         else:
             return redirect(url_for('login'))

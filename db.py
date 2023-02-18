@@ -18,9 +18,6 @@ class DBhandler:
 
 
     def insert_restaurant(self, name, data, img_path):
-        # con = sqlite3.connect("database.db")
-        #BASE_DIR = path.dirname(path.abspath(__file__))
-        #db_path = path.join(BASE_DIR, "database.db")
         con = sqlite3.connect("database.db")
         cur = con.cursor()
         #cur = self.con.cursor()
@@ -34,7 +31,7 @@ class DBhandler:
             "img_path": img_path
         }"""
 
-        sql = "INSERT INTO restaurant VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')" % (name, data['addr'], data['category'], img_path, data['park'],data['site'],data['tel'],data['time'])
+        sql = "INSERT INTO restaurant VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (name, data['addr'], data['category'], img_path, data['park'],data['site'],data['tel'],data['time'],data['writer'])
         cur.execute(sql)
         con.commit()
         con.close()
@@ -53,7 +50,7 @@ class DBhandler:
         cur = con.cursor()
 
 
-        sql = "UPDATE restaurant SET name='%s',addr='%s',category='%s', img_path='%s',park='%s',site='%s', tel='%s',time='%s' WHERE name='%s'" % (data['name'], data['addr'], data['category'], img_path, data['park'],data['site'],data['tel'],data['time'], name)
+        sql = "UPDATE restaurant SET name='%s',addr='%s',category='%s', img_path='%s',park='%s',site='%s', tel='%s',time='%s', writer='%s' WHERE name='%s'" % (data['name'], data['addr'], data['category'], img_path, data['park'],data['site'],data['tel'],data['time'],data['writer'], name)
         cur.execute(sql)
         con.commit()
         con.close()

@@ -2,10 +2,12 @@
 {% block section %}
 <form enctype="multipart/form-data" action="/modify_restaurant_post" method="post" >
     <div>
+        <input type="hidden" name="writer" id="writer" value="{{session['id']}}">
         <div>
+            <input type="hidden" name="origin_img_path" id="origin_img_path" value={{datas.img_path}}>
             <label for="img">Representative Image upload : </label>
              <!--   기본 이미지 경로 안뜨는거 수정 필요  -->
-            <input type="file" name="file" value={{datas.img_path}}/><br><br>
+            <input type="file" name="file" value={{img_path}}/><br><br>
             </div>
         <br><br>
             <input type="hidden" name="origin_name" id="origin_name" value={{datas.name}}>
