@@ -122,6 +122,7 @@ def register_user():
     pw_=request.form['pw']  
     
     cor.execute("INSERT INTO user(id, pw) VALUES(?,?)",(id_,pw_))
+    cor.close()
     conn.commit()
     conn.close()
     
@@ -169,6 +170,8 @@ def getUser():
     cursor.execute(sql, (id,))
     row = cursor.fetchone()
     user_pw=row[0]
+    conn.commit()
+    conn.close()
     return render_template('myaccount.html', id=id, pw=user_pw)
 
 # db에서 사용자 비번 조회해서 넘겨주기
@@ -183,6 +186,8 @@ def editUser():
     cursor.execute(sql, (id,))
     row = cursor.fetchone()
     user_pw=row[0]
+    conn.commit()
+    conn.close()
     return render_template('myaccount_edit.html', id=id, pw=user_pw)
 
 
@@ -197,7 +202,6 @@ def myaccount_edit_proc():
     sql = "update user set pw=? where id = ?"
     cursor.execute(sql, (upw,uid))
     conn.commit()
-    cursor.close()
     conn.close()
     return redirect('/login')
     
